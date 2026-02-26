@@ -9,11 +9,11 @@ ARFLAGS=rc
 LD=c++
 LDFLAGS=-lpthread
 
-all: $(LIB) test
+all: $(LIB) test test_unit
 
 .PHONY: clean
 clean:
-	rm -f $(LIB) iomp_log.o iomp.o iomp_kqueue.o iomp_epoll.o test test.o
+	rm -f $(LIB) iomp_log.o iomp.o iomp_kqueue.o iomp_epoll.o test test.o test_unit test_unit.o
 
 rebuild: clean all
 
@@ -35,6 +35,12 @@ iomp_kqueue.o: iomp_kqueue.c
 iomp_epoll.o: iomp_epoll.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
+test_unit: test_unit.o $(LIB)
+	$(LD) -o $@ test_unit.o -L. -liomp $(LDFLAGS)
+
 test.o: test.cc
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
+
+test_unit.o: test_unit.cc
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
