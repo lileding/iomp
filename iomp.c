@@ -8,7 +8,9 @@
 #include <pthread.h>
 #include <sys/queue.h>
 #include <sys/types.h>
+#if defined(__BSD__)
 #include <sys/sysctl.h>
+#endif
 #include "iomp_queue.h"
 #include "iomp.h"
 
